@@ -14,27 +14,22 @@ const engineerQuestions = [
     {
         type: `input`,
         message: `please input your name `,
-        name: `name`
+        name: `engineerName`
     },
     {
         type: `input`,
         message: `please input your employee ID`,
-        name: `empID`
+        name: `engineerId`
     },
     {
         type: `input`,
         message: `please input your employee email`,
-        name: `email`
+        name: `engineerEmail`
     },
     {
         type: `input`,
         message: `please input your github username`,
-        name: `gitHubUserName`
-    },
-    {
-        type: `input`,
-        message: `please input your github page link`,
-        name: `gitHubLink`
+        name: `engineerGithub`
     },
 ]
 
@@ -42,22 +37,22 @@ const internQuestions = [
     {
         type: `input`,
         message: `please input your name`,
-        name: `name`
+        name: `interName`
     },
     {
         type: `input`,
         message: `please input your employee ID`,
-        name: `empID`
+        name: `internID`
     },
     {
         type: `input`,
         message: `please input your employee email`,
-        name: `email`
+        name: `internEmail`
     },
     {
         type: `input`,
         message: `please input your school`,
-        name: `school`
+        name: `internSchool`
     },
 ]
 
@@ -65,22 +60,22 @@ const managerQuestions = [
     {
         type: `input`,
         message: `please input your name`,
-        name: `name`
+        name: `managerName`
     },
     {
         type: `input`,
         message: `please input your employee ID`,
-        name: `empID`
+        name: `managerId`
     },
     {
         type: `input`,
         message: `please input your employee email`,
-        name: `email`
+        name: `managerEmail`
     },
     {
         type: `input`,
         message: `please input your office Number`,
-        name: `officeNumber`
+        name: `managerOfficeNumber`
     },
 ]
 
@@ -88,17 +83,17 @@ const employeeQuestions = [
     {
         type: `input`,
         message: `please input your name Number`,
-        name: `name`
+        name: `employeeName`
     },
     {
         type: `input`,
         message: `please input your employee ID`,
-        name: `empID`
+        name: `employeeId`
     },
     {
         type: `input`,
         message: `please input your employee email`,
-        name: `email`
+        name: `employeeEmail`
     },
     
 ]
@@ -169,7 +164,7 @@ function init() {
         inquirer
             .prompt(engineerQuestions)
             .then((answers) => {
-                const engineer = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail);
+                const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
                 team.push(engineer);
                 teamMemberId.push(answers.employeeId);
                 switchCaseEmployee();
@@ -180,7 +175,7 @@ function init() {
         inquirer
             .prompt(internQuestions)
             .then((answers) => {
-                const intern = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.internSchool);
+                const intern = new Intern(answers.interName, answers.internId, answers.internEmail, answers.internSchool);
                 team.push(intern);
                 teamMemberId.push(answers.employeeId);
                 switchCaseEmployee();
