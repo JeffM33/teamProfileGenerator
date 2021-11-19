@@ -13,8 +13,45 @@ const Manager = require('./lib/Manager');
 var team = [];
 var teamMemberId = [];
 
+const generateHTML = (answers) => 
+        `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+                <title>Document</title>
+            </head>
+            <body>
+                <header>
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <p> My Team </p>
+                        </div>
+                    </div>
+                <header>
+                <main>
+                    ${answers.Employee.employeeId}
+                    ${answers.Employee.employeeName}
+                    ${answers.Employee.employeeEmail}
 
+                    ${answers.Engineer.engineerId}
+                    ${answers.Engineer.engineerName}
+                    ${answers.Engineer.engineerEmail}
+                    ${answers.Engineer.engineerGithub}
 
+                    ${answers.Manager.managerId}
+                    ${answers.Manager.managerName}
+                    ${answers.Manager.managerEmail}
+                    ${answers.Manager.managerOfficeNumber}
+
+                    ${answers.Intern.internId}
+                    ${answers.Intern.internName}
+                    ${answers.Intern.internEmail}
+                    ${answers.Intern.internSchool}
+                </main>
+            </body>
+        </html>`;
 
 
 
@@ -106,6 +143,15 @@ const employeeQuestions = [
     
 ]
 
+const finishedQuestion = [
+    {
+        type: `list`,
+        message: `Are you done?`,
+        name: `finished`,
+        choices: ['Yes', 'No']
+    },
+]
+
 function init() {
     switchCaseEmployee();
 
@@ -119,10 +165,10 @@ function init() {
             .then(answer => {
                 switch (answer.jobTitle){
                     case "Intern" :
-                        addIntern(); 
+                        addIntern();
                         break;
                     case "Engineer" :
-                        addEngineer(); 
+                        addEngineer();
                         break;
                     case "Team Manager" :
                         addManager(); 
@@ -135,14 +181,6 @@ function init() {
                 } 
             })
     }
-
-    function writeHTML() {
-        inquirer
-            .prompt()
-                .then(() => writeFileAsync('index.html', generateHTML(answers)))
-                .then(() => console.log('Successfully wrote to index.html'))
-                .catch((err) => console.error(err));
-    }; 
 
     function addManager(){
     inquirer
@@ -187,31 +225,17 @@ function init() {
             })
     };
 
-    const generateHTML = (answers) => {
-        `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-                <title>Document</title>
-            </head>
-            <body>
-                <header>
-                    <div class="jumbotron jumbotron-fluid">
-                        <div class="container">
-                            <p> My Team </p>
-                        </div>
-                    </div>
-                <header>
-                <main>`
-                    answers
-                `</main>
-            </body>
-        </html>`;
-    }
-    
+     
+    function writeHTML() 
+    {inquirer
+        .prompt(finishedQuestion)
+            //console.log(team.engineerId, team.employeeId, team.managerId, team.internEmail)
+            .then((team) => writeFileAsync('index.html', generateHTML(...team)))
+            .then(() => console.log('Successfully wrote to index.html'))
+            .catch((err) => console.error(err));
+    }; 
 
 }
 
 init();
+
